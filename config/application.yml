@@ -1,0 +1,50 @@
+#内置tomcat port 端口及应用上下文配置(/portal)
+server:
+  port: 8080
+  servlet:
+    context-path: /bee
+
+# log4j2 配置文件路径
+logging:
+  conf: classpath:log4j2.xml
+
+
+
+#拦截器忽略拦截配置
+interceptor-config:
+  login-interceptor-exclude-path:
+    - /login.html
+    - /login
+    - /login.do
+    - /logout
+    - /public/**
+
+#thrift服务配置
+thrift-server-config:
+  server-info:
+    #Thrift服务主机IP
+    host : 192.168.0.155
+    #host : 192.168.0.132
+    #host : 127.0.0.1
+    #Thrift服务端口
+    port : 7910
+    close-socket : true
+    timeout : 15000
+
+#允许跨域访问配置
+corsconfiguration:
+ allowedOrigins: ["http://baidu.com","http://127.0.0.1:8085"]
+
+#调度任务配置
+scheduler-job-config:
+  job-list:
+    - name : job1
+      group : group1
+      #必须实现quartz的Job接口，首字母小写
+      job-bean-name : testJob
+      cron : 0/5 * * * * ?
+    - name : job2
+      group : group2
+      #必须实现quartz的Job接口，首字母小写
+      job-bean-name : testJob1
+      cron : 0/10 * * * * ?
