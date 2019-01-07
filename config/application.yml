@@ -2,7 +2,7 @@
 server:
   port: 8080
   servlet:
-    context-path: /bee
+    context-path: /
 
 # log4j2 配置文件路径
 logging:
