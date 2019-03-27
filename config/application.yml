@@ -4,7 +4,7 @@ sys:
 
 #内置tomcat端口及应用上下文配置
 server:
-  port: 8088
+  port: 8080
   servlet:
     context-path: /
 
