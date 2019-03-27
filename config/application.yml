@@ -1,14 +1,81 @@
-#内置tomcat port 端口及应用上下文配置(/portal)
+#cookie域，设置域名根域 demo.dlsafety.aysaas.com
+sys:
+   domain: localhost
+
+#内置tomcat端口及应用上下文配置
 server:
-  port: 8080
+  port: 8088
   servlet:
     context-path: /
 
 # log4j2 配置文件路径
 logging:
-  conf: classpath:log4j2.xml
+  config: classpath:log4j2.xml
 
-
+# Druid数据源配置
+#spring:
+#  datasource:
+#    type: com.alibaba.druid.pool.DruidDataSource
+#    driver-class-name: com.mysql.jdbc.Driver
+#    druid:
+#      url: jdbc:mysql://10.0.22.40:3306/jrds2v?useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useSSL=true
+#      username: root
+#      password: 123456
+#      # 初始连接数
+#      initial-size: 10
+#      # 最大连接池数量
+#      max-active: 100
+#      # 最小连接池数量
+#      min-idle: 10
+#      # 配置获取连接等待超时的时间
+#      max-wait: 60000
+#      # 打开PSCache，并且指定每个连接上PSCache的大小
+#      pool-prepared-statements: true
+#      max-pool-prepared-statement-per-connection-size: 20
+#      # 配置间隔多久才进行一次检测，检测需要关闭的空闲连接，单位是毫秒
+#      timeBetweenEvictionRunsMillis: 60000
+#      # 配置一个连接在池中最小生存的时间，单位是毫秒
+#      min-evictable-idle-time-millis: 300000
+#      validation-query: SELECT 1
+#      test-while-idle: true
+#      test-on-borrow: false
+#      test-on-return: false
+#  #freemarker模板引擎配置
+#  freemarker:
+#    template-loader-path: classpath:/templates/
+#    suffix: .html
+#    content-type: text/html
+#    charset: UTF-8
+#    request-context-attribute: request
+#    cache: false
+#  #redis配置
+#  redis:
+#    host: 127.0.0.1
+#    port: 6379
+#    password: jszhaj
+#    jedis:
+#      pool:
+#        max-active: 20
+#        max-idle: 500
+#        min-idle: 5
+#    database: 0
+#
+## mybatis plus配置
+#mybatis-plus:
+#  #实体扫描，多个package用逗号或者分号分隔
+#  typeAliasesPackage: com.ay.jrds.entity
+#  mapper-locations: classpath:mybatis/mapper/*.xml
+#  #configuration:
+#  #    map-underscore-to-camel-case: true
+#  #    cache-enabled: false
+#  config-location: classpath:mybatis/mybatis-config.xml
+#
+## 分页插件 PageHelper
+#pagehelper:
+#  helperDialect: mysql
+#  reasonable: true
+#  supportMethodsArguments: true
+#  params: count=countSql
 
 #拦截器忽略拦截配置
 interceptor-config:
@@ -17,7 +84,13 @@ interceptor-config:
     - /login
     - /login.do
     - /logout
+    - /error/**
+    - /index/img/**
+    - /index/*.css
+    - /index/*.js
+    - /index/public/**
     - /public/**
+    - /verCode/**
 
 #thrift服务配置
 thrift-server-config:
@@ -28,10 +101,8 @@ thrift-server-config:
     #host : 127.0.0.1
     #Thrift服务端口
     port : 7910
-    close-socket : true
-    timeout : 15000
 
-#允许跨域访问配置
+#允许跨域访问配置`
 corsconfiguration:
  allowedOrigins: ["http://baidu.com","http://127.0.0.1:8085"]
 
@@ -48,3 +119,22 @@ scheduler-job-config:
       #必须实现quartz的Job接口，首字母小写
       job-bean-name : testJob1
       cron : 0/10 * * * * ?
+#登录验证码获取及校验配置
+kaptcha:
+  height: 50
+  width: 200
+  content:
+    length: 4
+    source: abcdefghjklmnopqrstuvwxyz23456789
+    space: 2
+  font:
+    color: black
+    name: Arial
+    size: 40
+  background-color:
+    from: lightGray
+    to: white
+  border:
+    enabled: true
+    color: black
+    thickness: 1
